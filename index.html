@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Avighna Ayurveda | Dr. Nikhil Sharma (BAMS, MD Ayurveda)</title>
+  <meta name="description" content="Authentic Ayurvedic care for chronic and lifestyle disorders. Consult Dr. Nikhil Sharma (MD Ayurveda) at Avighna Ayurveda.">
+  <link rel="icon" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <style>
+    :root{
+      --beige:#FAF3E0;
+      --green:#A8C686;
+      --green-weak:#D8E2C4;
+      --ink:#2B2B2B;
+      --card:#FFFFFF;
+      --shadow:0 10px 24px rgba(0,0,0,.08);
+      --radius:16px;
+      --navH:70px;
+    }
+    *,*::before,*::after{ box-sizing:border-box; }
+    img{ max-width:100%; height:auto; display:block; }  /* no image overflow anywhere */
+    html{scroll-behavior:smooth}
+    body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif; background:var(--beige); color:var(--ink);}
+
+    /* Header/Nav */
+    .topbar{position:sticky; top:0; z-index:100; backdrop-filter:saturate(140%) blur(6px);
+      background:linear-gradient(0deg,rgba(250,243,224,.75),rgba(250,243,224,.95)); border-bottom:1px solid rgba(0,0,0,.06); height:var(--navH);}
+    .nav{max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:14px; padding:10px 18px; height:var(--navH);}
+    .brand{display:flex; align-items:center; gap:10px}
+    .brand img{height:38px; width:38px; object-fit:contain}
+    .brand .txt{display:flex; flex-direction:column; line-height:1.05}
+    .brand b{font-size:18px}
+    .brand small{opacity:.85}
+    .nav-links{display:flex; align-items:center; gap:8px}
+    .nav a{text-decoration:none; color:var(--ink); opacity:.9; padding:6px 10px; border-radius:10px;}
+    .nav a:hover{background:var(--green-weak); opacity:1}
+    .spacer{flex:1}
+    .btn{border:0; border-radius:10px; padding:8px 12px; cursor:pointer; background:#fff; box-shadow:var(--shadow);}
+    .primary{background:var(--green); color:#fff;}
+    .lang-btn{background:#fff;}
+    .hamb{display:none; background:#fff; border:0; border-radius:10px; padding:8px 12px;}
+    @media (max-width: 900px){
+      .nav-links{ display:none; position:absolute; top:var(--navH); left:0; right:0; background:rgba(250,243,224,.98); padding:12px 18px; flex-direction:column; gap:10px; border-bottom:1px solid rgba(0,0,0,.06)}
+      .nav-links.open{display:flex;}
+      .hamb{display:block;}
+    }
+
+    /* Sections */
+    section{max-width:1100px; margin:28px auto; padding:18px; scroll-margin-top: calc(var(--navH) + 16px);}
+    .card{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;}
+    .hero{
+      display:grid; grid-template-columns:1.05fr .95fr; gap:28px; padding:28px;
+      overflow:hidden;
+    }
+    .hero > * { min-width:0; } /* text never pushes out */
+    .hero-visual{display:flex; align-items:center; justify-content:center;}
+    /* Big hero image (kept large) */
+    .hero-visual img{
+      width: clamp(680px, 56vw, 920px);
+      border-radius:14px; object-fit:cover;
+    }
+    h2{margin:0 0 12px 0; overflow-wrap:anywhere;}  /* long headings wrap safely */
+    .pill{
+      display:inline-flex; align-items:center;
+      background:var(--green-weak); padding:8px 14px; border-radius:999px;
+      font-size:13px; line-height:1.25; white-space:normal; overflow-wrap:anywhere;
+      margin-top:2px;
+    }
+
+    /* Grids */
+    .grid-2{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; align-items:start;}
+    .grid-2 > * { min-width: 0; }
+    .grid-3{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px}
+
+    /* Conditions (more robust on small screens) */
+    .cards{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:22px; align-items:stretch;
+    }
+    @media (max-width:700px){
+      .cards{ grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+    }
+    .card-item{
+      background:#fff; border-radius:14px; box-shadow:var(--shadow);
+      padding:16px 18px; line-height:1.65; font-size:16px;
+    }
+    .card-item b{display:block; margin-bottom:4px}
+
+    /* Testimonials slider */
+    .slider{position:relative; overflow:hidden; border-radius:var(--radius);}
+    .slider-track{display:flex; transition:transform .45s ease;}
+    .slide{min-width:100%; box-sizing:border-box; padding:30px 120px;}
+    .quote{background:#fff; border-radius:12px; padding:18px; box-shadow:var(--shadow); font-style:italic;}
+    .arrow{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:44px; height:44px; border:0; cursor:pointer; z-index:3;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(255,255,255,.98); border-radius:999px; box-shadow:var(--shadow);
+      font-size:22px; line-height:1;
+    }
+    .prev{ left:18px; } .next{ right:18px; }
+    .arrow:hover{ filter:brightness(.96); }
+    @media (max-width:640px){
+      .slide{ padding:22px 70px; }
+      .arrow{ width:38px; height:38px; font-size:20px; }
+      .prev{ left:10px; } .next{ right:10px; }
+    }
+
+    /* Panels */
+    .panel{ background:#fff; border-radius:12px; padding:16px; border:1px solid rgba(0,0,0,.06); box-shadow:none; }
+
+    /* Form */
+    form{display:grid; gap:12px}
+    input, textarea, select{padding:12px; border-radius:10px; border:1px solid rgba(0,0,0,.12); background:#fff; width:100%;}
+    .note{font-size:13px; opacity:.75}
+
+    /* Footer */
+    footer{padding:32px 18px; text-align:center; opacity:.85}
+
+    /* Floating WhatsApp */
+    .wa-float{position:fixed; right:16px; bottom:16px; z-index:90; display:none; background:var(--green); color:#fff; padding:12px 14px; border-radius:999px; text-decoration:none; box-shadow:var(--shadow);}
+    @media (max-width: 780px){ .wa-float{display:inline-flex;} }
+
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr}
+      .hero-visual img{width:92vw;}
+    }
+
+    /* About doctor photo – reduced ~50% and confined to its column */
+    .about-photo{
+      width: clamp(280px, 27vw, 480px);
+      border-radius:14px; box-shadow:var(--shadow); object-fit:cover; margin-left:auto;
+    }
+  
+/* --- Mobile polish --- */
+@media (max-width: 480px){
+  :root { --navH: 64px; }
+
+  /* Header/nav */
+  .nav{ padding:8px 12px; gap:8px; }
+  .brand img{ width:32px; height:32px; }
+  .brand b{ font-size:17px; }
+  .brand small{ font-size:12px; }
+  .btn{ padding:10px 12px; }               /* bigger touch targets */
+  .lang-btn{ padding:8px 10px; font-size:14px; }
+
+  /* Section containers */
+  section{ margin:20px auto; padding:14px; }
+  h2{ font-size:clamp(22px, 6vw, 28px); line-height:1.25; }
+  p{ font-size:16px; line-height:1.6; }    /* prevents iOS zoom on inputs too */
+
+  /* Hero */
+  .hero{ padding:18px; gap:18px; }
+  .pill{ font-size:12px; padding:6px 10px; }
+  .hero-visual img{ width:92vw; }          /* keep hero image big but contained */
+
+  /* Grids/cards */
+  .grid-2 > *, .grid-3 > *{ min-width:0; }
+  .panel{ padding:14px; }
+  .cards{ gap:14px; }
+  .card-item{ padding:14px; font-size:15px; }
+
+  /* About photo (stay clear of text) */
+  .about-photo{ width:min(380px, 82vw); }
+
+  /* Testimonials carousel */
+  .slide{ padding:20px 56px; }
+  .arrow{ width:36px; height:36px; font-size:20px; }
+  .prev{ left:10px; } .next{ right:10px; }
+
+  /* Form – avoid iOS zoom jump */
+  input, textarea, select{ font-size:16px; }
+
+  /* Floating WhatsApp respects safe area on iPhone */
+  .wa-float{
+    right:14px;
+    bottom:calc(14px + env(safe-area-inset-bottom));
+    padding:12px 16px;
+    font-size:14px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="topbar">
+  <nav class="nav" id="navRoot">
+    <div class="brand">
+      <img src="assets/img/logo_lotus_256.png" alt="Avighna Ayurveda logo">
+      <div class="txt">
+        <b id="clinicName">Avighna Ayurveda</b>
+        <small id="clinicTag">Ayurvedic Care</small>
+      </div>
+    </div>
+
+    <button class="hamb" id="hamb">☰</button>
+    <div class="nav-links" id="links">
+      <a href="#home" id="navHome">Home</a>
+      <a href="#ayurveda" id="navAyurveda">What is Ayurveda?</a>
+      <a href="#principles" id="navPrinciples">Core Principles</a>
+      <a href="#conditions" id="navConditions"> Specialised Help With</a>
+      <a href="#about" id="navAbout">About</a>
+      <a href="#appointment" id="navAppointment">Appointment</a>
+      <a href="#faq" id="navFAQ">FAQ</a>
+      <a href="#contact" id="navContact">Contact</a>
+    </div>
+
+    <div class="spacer"></div>
+    <button class="btn lang-btn" id="langBtn" onclick="toggleLang()">हिन्दी / English</button>
+    <a class="btn primary" href="#appointment" id="bookNow">Book Now</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section id="home" class="card hero">
+  <div>
+    <span class="pill" id="heroBadge">Holistic Care</span>
+    <h2 id="heroTitle">Personalized Ayurvedic treatment rooted in classical wisdom</h2>
+    <p id="heroPara">
+      Compassionate, evidence-informed Ayurveda for chronic and lifestyle conditions. Safe, ethical and patient-centred care by Dr. Nikhil Sharma (BAMS, MD Ayurveda).
+    </p>
+    <div style="display:flex; gap:10px; margin-top:8px; flex-wrap:wrap">
+      <a class="btn primary" href="#appointment" id="heroCta">Book an Appointment</a>
+      <a class="btn" href="#conditions" id="heroAlt">View Conditions</a>
+    </div>
+    <div class="grid-3" style="margin-top:12px">
+      <div class="panel"><b id="trust1">5,000+ years of proven healing</b></div>
+      <div class="panel"><b id="trust2">BAMS, MD (Ayurveda)</b></div>
+      <div class="panel"><b id="trust3">Natural • Safe • Holistic</b></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <picture>
+      <source type="image/webp" srcset="assets/img/hero_sage@1x.webp 1x, assets/img/hero_sage@2x.webp 2x">
+      <source type="image/jpeg" srcset="assets/img/hero_sage@1x.jpg 1x, assets/img/hero_sage@2x.jpg 2x">
+      <img src="assets/img/hero_sage_default.jpg" alt="Ancient Ayurvedic sage" loading="eager">
+    </picture>
+  </div>
+</section>
+
+<!-- WHAT IS AYURVEDA -->
+<section id="ayurveda" class="card">
+  <h2 id="ayurTitle">What is Ayurveda?</h2>
+  <div class="grid-2">
+    <div>
+      <p id="ayurP1">
+        Ayurveda is one of the world’s oldest systems of healing, developed in India over <b>5,000 years</b> ago. It balances body, mind and spirit using herbs, diet, lifestyle and therapies.
+      </p>
+      <p id="ayurP2">
+        Unlike quick fixes, Ayurveda focuses on the <b>root cause</b> of disease. Loved across generations and recognized by global health bodies, it offers personalized, sustainable wellness.
+      </p>
+    </div>
+    <div class="panel">
+      <h3 id="ayurSideT">Why patients choose Ayurveda</h3>
+      <ul id="ayurSideL" style="margin-top:6px">
+        <li>Personalised plans</li>
+        <li>Natural herbs & diet</li>
+        <li>Long-term, root-cause focus</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CORE PRINCIPLES -->
+<section id="principles" class="card">
+  <h2 id="principlesTitle">Core Principles of Ayurveda</h2>
+  <div class="grid-3">
+    <div class="panel"><b id="p1t">Balance of Doshas</b><span id="p1d">Vata, Pitta, Kapha equilibrium via diet, herbs & routine.</span></div>
+    <div class="panel"><b id="p2t">Agni (Digestive Fire)</b><span id="p2d">Strong digestion & metabolism form the base of health.</span></div>
+    <div class="panel"><b id="p3t">Detox & Rejuvenation</b><span id="p3d">Panchakarma & Rasayana to clear toxins and rebuild vitality.</span></div>
+    <div class="panel"><b id="p4t">Dhatu Poshan</b><span id="p4d">Systematic nourishment of body tissues for lasting strength.</span></div>
+    <div class="panel"><b id="p5t">Dinacharya & Ritucharya</b><span id="p5d">Daily and seasonal rhythms aligned with nature.</span></div>
+    <div class="panel"><b id="p6t">Mind–Body Harmony</b><span id="p6d">Pranayama, meditation and sattvic lifestyle.</span></div>
+  </div>
+</section>
+
+<!-- CONDITIONS -->
+<section id="conditions" class="card">
+  <h2 id="condTitle">Conditions We Provide Specialised Help With</h2>
+  <div class="cards" id="condCards">
+    <div class="card-item"><b>Liver Disorders</b> Fatty liver, hepatitis support; improves metabolism & digestion.</div>
+    <div class="card-item"><b>Respiratory Issues</b> Asthma, chronic cough, sinusitis, breathlessness.</div>
+    <div class="card-item"><b>Digestive Problems</b> Acidity, IBS, ulcers, constipation, weak appetite.</div>
+    <div class="card-item"><b>Joint & Bone Disorders</b> Arthritis, spondylitis, knee pain, stiffness.</div>
+    <div class="card-item"><b>Skin Conditions</b> Eczema, psoriasis, acne, chronic itching.</div>
+    <div class="card-item"><b>Headaches & Migraine</b> Reduce frequency and intensity naturally.</div>
+    <div class="card-item"><b>Metabolic & Lifestyle</b> High BP, diabetes support, obesity.</div>
+    <div class="card-item"><b>Kidney & Urinary</b> Kidney stones, recurrent UTIs, urinary discomfort.</div>
+    <div class="card-item"><b>Women’s Health</b> Leucorrhea (safed paani), PCOS, infertility, menstrual issues.</div>
+    <div class="card-item"><b>Stress & Sleep Disorders</b> Anxiety, insomnia, fatigue, poor focus.</div>
+  </div>
+  <div style="margin-top:12px">
+    <a class="btn primary" href="#appointment" id="condCta">Facing any of these? Book your consultation</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="card">
+  <h2 id="aboutTitle">About Dr. Nikhil Sharma</h2>
+  <div class="grid-2">
+    <div>
+      <p id="aboutPara1">Dr. Nikhil Sharma is a qualified Ayurvedic physician (BAMS, MD Ayurveda) at Avighna Ayurveda, with expertise in chronic and lifestyle disorders.</p>
+      <p id="aboutPara2">He integrates classical Ayurvedic wisdom with modern diagnostics to deliver safe, ethical and result-oriented care tailored to each individual.</p>
+      <p><b id="clHoursTitle">Clinic Hours:</b> <span id="clHoursVal">Mon–Sat, 10am–7pm (by appointment)</span></p>
+      <p><b id="langTitle">Languages:</b> <span id="langVal">Hindi, English</span></p>
+      <p class="note" id="aboutNote">*This website does not replace medical advice. Please consult for a personalized plan.</p>
+    </div>
+    <div style="display:flex; justify-content:flex-end;">
+      <picture>
+        <source type="image/webp" srcset="assets/img/doctor_nikhil@1x.webp 1x, assets/img/doctor_nikhil@2x.webp 2x">
+        <source type="image/jpeg" srcset="assets/img/doctor_nikhil@1x.jpg 1x, assets/img/doctor_nikhil@2x.jpg 2x">
+        <img class="about-photo" src="assets/img/doctor_nikhil_default.jpg" alt="Dr. Nikhil Sharma, Ayurvedic Doctor">
+      </picture>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS (Carousel) -->
+<section id="testimonials" class="card">
+  <h2 id="testiTitle">Patient Experiences</h2>
+  <div class="slider" id="slider">
+    <div class="slider-track" id="track">
+      <div class="slide"><div class="quote" id="t1">“I had chronic acidity for years. Dr. Sharma’s plan helped me recover within 2 months.” — Anjali, 32</div></div>
+      <div class="slide"><div class="quote" id="t2">“My joint pain reduced significantly. The herbal regimen and diet changes were game changers.” — Rajesh, 54</div></div>
+      <div class="slide"><div class="quote" id="t3">“Breathing has improved so much. I can sleep better now.” — Farah, 28</div></div>
+    </div>
+    <button class="arrow prev" id="prev" aria-label="Previous">‹</button>
+    <button class="arrow next" id="next" aria-label="Next">›</button>
+  </div>
+</section>
+
+<!-- APPOINTMENT -->
+<section id="appointment" class="card">
+  <h2 id="apptTitle">Book an Appointment</h2>
+  <div class="grid-2">
+    <form id="apptForm" onsubmit="return sendWhatsApp()">
+      <input id="name" placeholder="Full Name" required />
+      <input id="phone" placeholder="Phone (with country code, e.g., +91...)" required />
+      <input id="date" type="date" />
+      <select id="concern">
+        <option value="" selected>Choose Concern</option>
+        <option>Liver Disorders</option>
+        <option>Asthma & Respiratory</option>
+        <option>Digestive Problems</option>
+        <option>Joint & Bone</option>
+        <option>Skin Conditions</option>
+        <option>Headache / Migraine</option>
+        <option>BP / Diabetes / Obesity</option>
+        <option>Kidney / Urinary</option>
+        <option>Women’s Health</option>
+        <option>Stress / Sleep</option>
+        <option>Other</option>
+      </select>
+      <textarea id="message" rows="4" placeholder="Briefly describe your concern"></textarea>
+      <button class="btn primary" type="submit" id="apptBtn">Send on WhatsApp</button>
+      <p class="note" id="waNote">You’ll be redirected to WhatsApp with your details pre-filled.</p>
+    </form>
+    <div class="panel">
+      <h3 id="apptSideTitle">What to Expect</h3>
+      <ul>
+        <li id="exp1">Constitution & history assessment</li>
+        <li id="exp2">Diet & lifestyle plan</li>
+        <li id="exp3">Herbal and therapy guidance</li>
+        <li id="exp4">Follow-up to track progress</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="card">
+  <h2 id="faqTitle">FAQ</h2>
+  <div class="grid-2">
+    <div class="panel">
+      <b id="q1">How soon can I see results?</b>
+      <span id="a1">Depends on the condition and adherence. Many patients feel improvement within 2–4 weeks.</span>
+    </div>
+    <div class="panel">
+      <b id="q2">Do I need to stop my current medicines?</b>
+      <span id="a2">No. Continue as prescribed. Any changes are made only after consultation and coordination.</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT (email only) -->
+<section id="contact" class="card">
+  <h2 id="contactTitle">Contact</h2>
+  <p><b id="emailLabel">Email:</b> <a id="contactEmail" href="mailto:clinic@example.com">clinic@example.com</a></p>
+</section>
+
+<footer>
+  © <span id="footYear"></span> <span id="footName">Avighna Ayurveda</span>. <span id="footAll">All rights reserved.</span>
+</footer>
+
+<!-- Floating WhatsApp -->
+<a class="wa-float" id="waFloat" href="#" onclick="return sendWhatsAppQuick()">WhatsApp Book</a>
+
+<script>
+  // Mobile nav toggle
+  const hamb = document.getElementById('hamb');
+  const links = document.getElementById('links');
+  hamb.addEventListener('click', ()=> links.classList.toggle('open'));
+
+  // Smooth offset scroll
+  (function(){
+    const nav = document.getElementById('navRoot');
+    const navLinks = nav.querySelectorAll('a[href^="#"]');
+    navLinks.forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(!el) return;
+        e.preventDefault();
+        const navH = nav.getBoundingClientRect().height || 70;
+        const y = window.scrollY + el.getBoundingClientRect().top - (navH + 12);
+        window.scrollTo({top: y, behavior:'smooth'});
+        links.classList.remove('open');
+      });
+    });
+  })();
+
+  // Testimonials slider
+  (function(){
+    const track = document.getElementById('track');
+    const slides = Array.from(track.children);
+    let idx = 0, busy = false;
+    function go(n){
+      if(busy) return; busy = true;
+      idx = (n + slides.length) % slides.length;
+      track.style.transform = `translateX(-${idx*100}%)`;
+      setTimeout(()=> busy = false, 470);
+    }
+    document.getElementById('prev').onclick = ()=> go(idx - 1);
+    document.getElementById('next').onclick = ()=> go(idx + 1);
+
+    // optional autoplay
+    let timer = setInterval(()=> go(idx + 1), 7000);
+    track.addEventListener('mouseenter', ()=> clearInterval(timer));
+    track.addEventListener('mouseleave', ()=> timer = setInterval(()=> go(idx + 1), 7000));
+  })();
+
+  // Language content
+  let lang = 'en';
+  const t = {
+    en: {
+      clinicName:"Avighna Ayurveda", clinicTag:"Holistic Ayurvedic Care",
+      nav:["Home","What is Ayurveda?","Core Principles","Conditions We Provide Specialised Help With","About","Appointment","FAQ","Contact"],
+      bookNow:"Book Now",
+      heroBadge:"Holistic Ayurvedic Care",
+      heroTitle:"Personalized Ayurvedic treatment rooted in classical wisdom",
+      heroPara:"Compassionate, evidence-informed Ayurveda for chronic and lifestyle conditions. Safe, ethical and patient-centred care by Dr. Nikhil Sharma (BAMS, MD Ayurveda).",
+      heroCta:"Book an Appointment", heroAlt:"View Conditions",
+      trust1:"5,000+ years of proven healing", trust2:"BAMS, MD (Ayurveda)", trust3:"Natural • Safe • Holistic",
+      ayurTitle:"What is Ayurveda?",
+      ayurP1:"Ayurveda is one of the world’s oldest systems of healing, developed in India over 5,000 years ago. It balances body, mind and spirit using herbs, diet, lifestyle and therapies.",
+      ayurP2:"Unlike quick fixes, Ayurveda focuses on the root cause of disease. Loved across generations and recognized by global health bodies, it offers personalized, sustainable wellness.",
+      ayurSideT:"Why patients choose Ayurveda",
+      ayurSideL:["Personalised plans","Natural herbs & diet","Long-term, root-cause focus"],
+      principlesTitle:"Core Principles of Ayurveda",
+      condTitle:"Conditions We Provide Specialised Help With",
+      condCta:"Facing any of these? Book your consultation",
+      aboutTitle:"About Dr. Nikhil Sharma",
+      aboutPara1:"Dr. Nikhil Sharma is a qualified Ayurvedic physician (BAMS, MD Ayurveda) at Avighna Ayurveda, with expertise in chronic and lifestyle disorders.",
+      aboutPara2:"He integrates classical Ayurvedic wisdom with modern diagnostics to deliver safe, ethical and result-oriented care tailored to each individual.",
+      clHoursTitle:"Clinic Hours:", clHoursVal:"Mon–Sat, 10am–7pm (by appointment)",
+      langTitle:"Languages:", langVal:"Hindi, English",
+      aboutNote:"*This website does not replace medical advice. Please consult for a personalized plan.",
+      apptTitle:"Book an Appointment", apptBtn:"Send on WhatsApp",
+      waNote:"You’ll be redirected to WhatsApp with your details pre-filled.",
+      apptSideTitle:"What to Expect",
+      testiTitle:"Patient Experiences",
+      faqTitle:"FAQ", q1:"How soon can I see results?", a1:"Depends on the condition and adherence. Many patients feel improvement within 2–4 weeks.",
+      q2:"Do I need to stop my current medicines?", a2:"No. Continue as prescribed. Any changes are made only after consultation and coordination.",
+      contactTitle:"Contact", emailLabel:"Email:",
+      footAll:"All rights reserved."
+    },
+    hi: {
+      clinicName:"अविघ्न आयुर्वेद", clinicTag:"समग्र आयुर्वेदिक देखभाल",
+      nav:["होम","आयुर्वेद क्या है?","आयुर्वेद के सिद्धांत","हम जिन रोगों में विशेषज्ञ सहायता प्रदान करते हैं","परिचय","अपॉइंटमेंट","प्रश्नोत्तर","संपर्क"],
+      bookNow:"अपॉइंटमेंट बुक करें",
+      heroBadge:"समग्र आयुर्वेदिक देखभाल",
+      heroTitle:"परंपरागत ज्ञान पर आधारित व्यक्तिगत उपचार",
+      heroPara:"दीर्घकालिक व जीवनशैली रोगों के लिए करुणापूर्ण, सुरक्षित और परिणाम-केंद्रित आयुर्वेद। डॉ. निखिल शर्मा (BAMS, MD आयुर्वेद)।",
+      heroCta:"अपॉइंटमेंट बुक करें", heroAlt:"रोग देखें",
+      trust1:"5000+ वर्षों से सिद्ध चिकित्सा", trust2:"BAMS, MD (आयुर्वेद)", trust3:"प्राकृतिक • सुरक्षित • समग्र",
+      ayurTitle:"आयुर्वेद क्या है?",
+      ayurP1:"आयुर्वेद विश्व की सबसे प्राचीन चिकित्सा प्रणालियों में से एक है, भारत में लगभग 5000 वर्ष पूर्व विकसित। यह जड़ी-बूटियों, आहार, दिनचर्या व थैरेपी से शरीर-मन-आत्मा का संतुलन बनाता है।",
+      ayurP2:"त्वरित राहत के बजाय आयुर्वेद रोग के मूल कारण पर ध्यान देता है। पीढ़ियों से विश्वसनीय व मान्य, यह व्यक्तिगत और टिकाऊ स्वास्थ्य प्रदान करता है।",
+      ayurSideT:"लोग आयुर्वेद क्यों चुनते हैं",
+      ayurSideL:["व्यक्तिगत योजना","प्राकृतिक औषधि व आहार","दीर्घकालिक, मूल-कारण पर फोकस"],
+      principlesTitle:"आयुर्वेद के मूल सिद्धांत",
+      condTitle:"हम जिन रोगों में विशेषज्ञ सहायता प्रदान करते हैं",
+      condCta:"इनमें से कोई समस्या है? परामर्श बुक करें",
+      aboutTitle:"डॉ. निखिल शर्मा के बारे में",
+      aboutPara1:"डॉ. निखिल शर्मा (BAMS, MD आयुर्वेद) — अविघ्न आयुर्वेद में दीर्घकालिक व जीवनशैली रोगों के विशेषज्ञ।",
+      aboutPara2:"शास्त्रसम्मत आयुर्वेद व आधुनिक जाँचों का समन्वय कर सुरक्षित, नैतिक और परिणामकारी उपचार प्रदान करते हैं।",
+      clHoursTitle:"क्लिनिक समय:", clHoursVal:"सोम–शनि, 10am–7pm (पूर्व-नियोजन)",
+      langTitle:"भाषाएँ:", langVal:"हिंदी, अंग्रेज़ी",
+      aboutNote:"*यह वेबसाइट चिकित्सीय परामर्श का विकल्प नहीं है। व्यक्तिगत योजना हेतु परामर्श लें।",
+      apptTitle:"अपॉइंटमेंट बुक करें", apptBtn:"व्हाट्सऐप पर भेजें",
+      waNote:"आपका विवरण भरे हुए संदेश के साथ व्हाट्सऐप खुलेगा।",
+      apptSideTitle:"परामर्श में क्या होगा",
+      testiTitle:"मरीज़ों के अनुभव",
+      faqTitle:"प्रश्नोत्तर", q1:"परिणाम कब दिखेंगे?", a1:"रोग व पालन पर निर्भर। कई मरीज 2–4 हफ्तों में सुधार अनुभव करते हैं।",
+      q2:"क्या मुझे वर्तमान दवाएँ बंद करनी होंगी?", a2:"नहीं। चिकित्सकीय निर्देश अनुसार जारी रखें; बदलाव केवल परामर्श के बाद।",
+      contactTitle:"संपर्क", emailLabel:"ईमेल:",
+      footAll:"सर्वाधिकार सुरक्षित।"
+    }
+  };
+
+  function applyLang(){
+    const L = t[lang];
+    document.getElementById('clinicName').innerText = L.clinicName;
+    document.getElementById('clinicTag').innerText = L.clinicTag;
+    ['navHome','navAyurveda','navPrinciples','navConditions','navAbout','navAppointment','navFAQ','navContact']
+      .forEach((id,i)=> document.getElementById(id).innerText = L.nav[i]);
+    document.getElementById('bookNow').innerText = L.bookNow;
+
+    ['heroBadge','heroTitle','heroPara','heroCta','heroAlt'].forEach(k=>document.getElementById(k).innerText = L[k]);
+    document.getElementById('trust1').innerText = L.trust1;
+    document.getElementById('trust2').innerText = L.trust2;
+    document.getElementById('trust3').innerText = L.trust3;
+
+    document.getElementById('ayurTitle').innerText = L.ayurTitle;
+    document.getElementById('ayurP1').innerText = L.ayurP1;
+    document.getElementById('ayurP2').innerText = L.ayurP2;
+    document.getElementById('ayurSideT').innerText = L.ayurSideT;
+    const side = document.getElementById('ayurSideL'); side.innerHTML='';
+    (L.ayurSideL||[]).forEach(s=>{ const li=document.createElement('li'); li.innerText=s; side.appendChild(li); });
+
+    document.getElementById('principlesTitle').innerText = L.principlesTitle;
+    document.getElementById('condTitle').innerText = L.condTitle;
+    document.getElementById('condCta').innerText = L.condCta;
+
+    document.getElementById('aboutTitle').innerText = L.aboutTitle;
+    document.getElementById('aboutPara1').innerText = L.aboutPara1;
+    document.getElementById('aboutPara2').innerText = L.aboutPara2;
+    document.getElementById('clHoursTitle').innerText = L.clHoursTitle;
+    document.getElementById('clHoursVal').innerText = L.clHoursVal;
+    document.getElementById('langTitle').innerText = L.langTitle;
+    document.getElementById('langVal').innerText = L.langVal;
+    document.getElementById('aboutNote').innerText = L.aboutNote;
+
+    document.getElementById('testiTitle').innerText = L.testiTitle;
+
+    document.getElementById('faqTitle').innerText = L.faqTitle;
+    document.getElementById('q1').innerText = L.q1; document.getElementById('a1').innerText = L.a1;
+    document.getElementById('q2').innerText = L.q2; document.getElementById('a2').innerText = L.a2;
+    document.getElementById('contactTitle').innerText = L.contactTitle;
+    document.getElementById('emailLabel').innerText = L.emailLabel;
+    document.getElementById('footAll').innerText = L.footAll;
+    document.getElementById('footName').innerText = (lang==='en'?'Avighna Ayurveda':'अविघ्न आयुर्वेद');
+  }
+
+  function toggleLang(){ lang = (lang === 'en') ? 'hi' : 'en'; applyLang(); }
+
+  // WhatsApp integration
+  const CLINIC_WA_NUMBER = '916006261586';
+  function buildWaMessage(){
+    const name = (document.getElementById('name')?.value || '').trim();
+    const phone = (document.getElementById('phone')?.value || '').trim();
+    const date = (document.getElementById('date')?.value || '');
+    const concern = (document.getElementById('concern')?.value || '');
+    const msg = (document.getElementById('message')?.value || '').trim();
+
+    const L = t[lang];
+    const lines = [
+      `${t[lang].clinicName} - ${L.apptTitle}`,
+      `Name/नाम: ${name || '-'}`,
+      `Phone/फोन: ${phone || '-'}`,
+      date ? `Preferred Date/पसंदीदा तारीख: ${date}` : '',
+      concern ? `Concern/समस्या: ${concern}` : '',
+      msg ? `Message/संदेश: ${msg}` : ''
+    ].filter(Boolean).join('\n');
+
+    const text = encodeURIComponent(lines);
+    const phoneDigits = CLINIC_WA_NUMBER.replace(/\D/g,'');
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const mobileURL = `https://wa.me/${phoneDigits}?text=${text}`;
+    const webURL = `https://api.whatsapp.com/send?phone=${phoneDigits}&text=${text}`;
+    return isMobile ? mobileURL : webURL;
+  }
+  function sendWhatsApp(){
+    const name = (document.getElementById('name')?.value || '').trim();
+    const phone = (document.getElementById('phone')?.value || '').trim();
+    if(!name || !phone){ alert(lang==='en'?'Please fill name and phone.':'कृपया नाम और फोन भरें।'); return false; }
+    window.open(buildWaMessage(), '_blank'); return false;
+  }
+  function sendWhatsAppQuick(){ window.open(buildWaMessage(), '_blank'); return false; }
+
+  // Init
+  document.getElementById('footYear').innerText = new Date().getFullYear();
+  applyLang();
+</script>
+
+</body>
+</html>
